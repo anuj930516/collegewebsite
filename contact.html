@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Government Polytechnic kanpur</title>
+  <meta name="keywords" content="HTML, CSS, JavaScript, GPK kanpur">
+  <meta name="author" content="Anuj kumar">
+  <link rel="shortcut icon" href="logo.jpg" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: rgb(28, 70, 132);
+
+  }
+
+  .contect-op h2 {
+    font-size: 40px;
+    color: #ededed;
+    text-align: center;
+    margin-bottom: 10px;
+    text-decoration: underline;
+  }
+
+  .contect-op form {
+    width: 600px;
+    text-align: center;
+    margin-top: 10px;
+    padding-top: 15px;
+
+  }
+
+
+  form .input-boxx {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+
+  .field .item {
+    width: 100%;
+    padding: 18px;
+    background: transparent;
+    border: 2px solid #0ef;
+    outline: none;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #ededed;
+    margin: 12px 0;
+  }
+
+  .field.error .item {
+    border-color: red;
+  }
+
+  .field .itme::placeholder {
+    color: white;
+  }
+
+  .field .error .error-txt {
+    display: block;
+  }
+
+  form .textarea-field .item {
+    resize: none;
+  }
+
+  form .textarea-field .error-txt {
+    margin-top: -10px;
+  }
+
+  form button {
+    padding: 12px 32px;
+    background: #0ef;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #0ef;
+    font-size: 16px;
+    color: #333;
+    letter-spacing: 1px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+
+  @media(max-width:700px) {
+    .contect-op .input-boxx {
+      padding: 10px;
+      flex-direction: column;
+      width: 50%;
+      padding-left: 8rem;
+
+    }
+
+    body {
+      overflow: hidden;
+    }
+
+    form .textarea-field {
+      width: 50%;
+      padding-left: 8rem;
+    }
+  }
+</style>
+
+<body>
+  <section class="contect-op">
+    <h2>Contact Us</h2>
+    <form action="#">
+      <div class="input-boxx">
+        <div class="input-field field">
+          <input type="text" placeholder="Full Name" id="name" class="item" autocomplete="off" required>
+        </div>
+        <div class="input-field field">
+          <input type="email" placeholder="Email Address" id="email" class="item" autocomplete="off" required>
+        </div>
+      </div>
+
+      <div class="input-boxx">
+        <div class="input-field field">
+          <input type="numeric" placeholder="Phone Number" id="phone" name="phone" class="item" autocomplete="off"
+            required maxlength="10">
+        </div>
+        <div class="input-field field">
+          <input type="text" placeholder="Subject" id="subject" class="item" autocomplete="off" required>
+        </div>
+      </div>
+
+      <div class="textarea-field field">
+        <textarea name="" id="message" cols="30" rows="10" placeholder="Your Message" class="item" autocomplete="off"
+          required></textarea>
+      </div>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+  <!-- ======<script></script>====== -->
+
+  <script>
+    const form = document.querySelector("form");
+    const fullName = document.getElementById("name")
+    const email = document.getElementById("email")
+    const phone = document.getElementById("phone")
+    const subject = document.getElementById("subject")
+    const message = document.getElementById("message")
+
+    function sendEmail() {
+      const bodyMessage = `Full Name: ${fullName.value}<br> Email: ${email.value} <br> Phone Number: ${phone.value}<br> Message: ${message.value}`;
+
+      Email.send({
+        Host: "smtp.elasticemail.com",
+        Username: "kanpurpolytechnic99@gmail.com",
+        Password: "67180118D28A86B2E24E511E36B0E73C225D",
+        To: 'kanpurpolytechnic99@gmail.com',
+        From: "kanpurpolytechnic99@gmail.com",
+        Subject: subject.value,
+        Body: bodyMessage
+      }).then(
+        message => {
+          if (message == "OK") {
+            Swal.fire({
+              title: "Success!",
+              text: "Message sent successfully!",
+              icon: "success"
+            });
+          }
+        }
+
+      );
+    }
+
+    function checkInputs() {
+      const items = document.querySelectorAll(".item");
+
+      for (const item of items) {
+        if (item.value === "") {
+          item.classList.add("error");
+          item.parentElement.classList.add("error");
+        }
+
+        item.addEventListener("keyup", () => {
+          if (item.value != "") {
+            item.classList.remove("error");
+            item.parentElement.classList.remove("error");
+          }
+          else {
+            item.classList.add("error");
+            item.parentElement.classList.add("error");
+          }
+        });
+
+      }
+    };
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      checkInputs();
+
+      if (!fullName.classList.contains("error") && !email.classList.contains("error") && !fullName.classList.contains("error") && !subject.classList.contains("error") && !message.classList.contains("error")) {
+        sendEmail();
+
+        form.reset();
+        return false;
+      }
+
+
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://smtpjs.com/v3/smtp.js">
+  </script>
+</body>
+
+</html>
